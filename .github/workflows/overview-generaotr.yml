@@ -1,0 +1,35 @@
+name: GRASS GIS addon overview generator
+
+on:
+  push:
+    branches: [ overview_generator ]
+
+jobs:
+  generate-grass-overview:
+    name: generate overview
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate GRASS GIS overview
+        run: |
+            python3 overview-generator/generate_grass_addon_overview.py
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "overview-generator/public"
+
+  deploy-grass-overview:
+    name: deploy-grass-overview
+    runs-on: ubuntu-latest
+    needs: generate-grass-overview
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      # environment created automatically by GitHub
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

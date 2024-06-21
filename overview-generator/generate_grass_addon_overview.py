@@ -24,6 +24,7 @@
 #  python3 generate_grass_addon_overview.py
 
 import json
+import os
 import subprocess
 
 from datetime import datetime
@@ -32,6 +33,10 @@ import requests
 
 GITHUB_OWNER = "mundialis"
 GITHUB_TOPIC = "grass-gis-addons"
+script_dir = os.path.dirname(os.path.abspath(__file__))
+CREATED_HTML_FILE = os.path.join(
+    script_dir, "public", "grass_addon_overview.html"
+)
 
 
 def get_grass_family(grass_repos_dict, addon_name):
@@ -74,7 +79,7 @@ def get_repo_content(repo):
     return repo_content_list
 
 
-def check_test_status(repo):
+def check_test_status(repo, testsuite):
     """Check the status of the last runned tested"""
     gh_check_actions = [
         "gh",
@@ -94,6 +99,54 @@ def check_test_status(repo):
     if len(tests_main) > 1:
         testsuite = tests_main[0][1]
     return testsuite
+
+
+def generate_template_parameter(grass_repos_dict):
+    """Generate the template parameter"""
+    # set date related variables
+    now = datetime.utcnow()
+    date = now.strftime("%d %b %Y")
+    date_utc = now.strftime("%a %b %d %H:%M:%S UTC %Y")
+    current_year = now.strftime("%Y")
+
+    # create template parameter
+    tmpl_param = {
+        "date": date,
+        "date_utc": date_utc,
+        "number_addons": 0,
+        "current_year": current_year,
+    }
+    if "d" in grass_repos_dict:
+        tmpl_param["number_addons"] += len(grass_repos_dict["d"])
+        tmpl_param["display_addons"] = grass_repos_dict["d"]
+    if "db" in grass_repos_dict:
+        tmpl_param["number_addons"] += len(grass_repos_dict["db"])
+        tmpl_param["db_addons"] = grass_repos_dict["db"]
+    if "g" in grass_repos_dict:
+        tmpl_param["number_addons"] += len(grass_repos_dict["g"])
+        tmpl_param["general_addons"] = grass_repos_dict["g"]
+    if "i" in grass_repos_dict:
+        tmpl_param["number_addons"] += len(grass_repos_dict["i"])
+        tmpl_param["imagery_addons"] = grass_repos_dict["i"]
+    if "m" in grass_repos_dict:
+        tmpl_param["number_addons"] += len(grass_repos_dict["m"])
+        tmpl_param["misc_addons"] = grass_repos_dict["m"]
+    if "ps" in grass_repos_dict:
+        tmpl_param["number_addons"] += len(grass_repos_dict["ps"])
+        tmpl_param["postscript_addons"] = grass_repos_dict["ps"]
+    if "r" in grass_repos_dict:
+        tmpl_param["number_addons"] += len(grass_repos_dict["r"])
+        tmpl_param["raster_addons"] = grass_repos_dict["r"]
+    if "r3" in grass_repos_dict:
+        tmpl_param["number_addons"] += len(grass_repos_dict["r3"])
+        tmpl_param["drast_addons"] = grass_repos_dict["r3"]
+    if "t" in grass_repos_dict:
+        tmpl_param["number_addons"] += len(grass_repos_dict["t"])
+        tmpl_param["temporal_addons"] = grass_repos_dict["t"]
+    if "v" in grass_repos_dict:
+        tmpl_param["number_addons"] += len(grass_repos_dict["v"])
+        tmpl_param["vector_addons"] = grass_repos_dict["v"]
+    return tmpl_param
 
 
 # list mundialis grass-gis-addons repos
@@ -148,7 +201,7 @@ for grass_repo in grass_repos:
     testsuite = "no"
     if "testsuite" in repo_content_list:
         testsuite = "yes"
-    testsuite = check_test_status(grass_repo)
+    testsuite = check_test_status(grass_repo, testsuite)
 
     # add repo to dict
     grass_repos_dict[grass_family_short][grass_addon_name] = {
@@ -173,7 +226,7 @@ for repo in other_repos:
     testsuite = "no"
     if f"{addons_dir_base}/testsuite" in repo_content_list:
         testsuite = "yes"
-        testsuite = check_test_status(grass_repo)
+        testsuite = check_test_status(grass_repo, testsuite)
     for html_file in html_files:
         splitted_name = html_file.split("/")
         if f"{splitted_name[0]}.html" == splitted_name[-1]:
@@ -240,52 +293,9 @@ for repo in other_repos:
                 "testsuite": testsuite,
             }
 
-# set other variables
-now = datetime.utcnow()
-date = now.strftime("%d %b %Y")
-date_utc = now.strftime("%a %b %d %H:%M:%S UTC %Y")
-current_year = now.strftime("%Y")
-
 # template
-with open("template_index.html") as f:
+with open(os.path.join(script_dir, "template_index.html")) as f:
     tmpl = Template(f.read())
-
-tmpl_param = {
-    "date": date,
-    "date_utc": date_utc,
-    "number_addons": 0,
-    "current_year": current_year,
-}
-if "d" in grass_repos_dict:
-    tmpl_param["number_addons"] += len(grass_repos_dict["d"])
-    tmpl_param["display_addons"] = grass_repos_dict["d"]
-if "db" in grass_repos_dict:
-    tmpl_param["number_addons"] += len(grass_repos_dict["db"])
-    tmpl_param["db_addons"] = grass_repos_dict["db"]
-if "g" in grass_repos_dict:
-    tmpl_param["number_addons"] += len(grass_repos_dict["g"])
-    tmpl_param["general_addons"] = grass_repos_dict["g"]
-if "i" in grass_repos_dict:
-    tmpl_param["number_addons"] += len(grass_repos_dict["i"])
-    tmpl_param["imagery_addons"] = grass_repos_dict["i"]
-if "m" in grass_repos_dict:
-    tmpl_param["number_addons"] += len(grass_repos_dict["m"])
-    tmpl_param["misc_addons"] = grass_repos_dict["m"]
-if "ps" in grass_repos_dict:
-    tmpl_param["number_addons"] += len(grass_repos_dict["ps"])
-    tmpl_param["postscript_addons"] = grass_repos_dict["ps"]
-if "r" in grass_repos_dict:
-    tmpl_param["number_addons"] += len(grass_repos_dict["r"])
-    tmpl_param["raster_addons"] = grass_repos_dict["r"]
-if "r3" in grass_repos_dict:
-    tmpl_param["number_addons"] += len(grass_repos_dict["r3"])
-    tmpl_param["drast_addons"] = grass_repos_dict["r3"]
-if "t" in grass_repos_dict:
-    tmpl_param["number_addons"] += len(grass_repos_dict["t"])
-    tmpl_param["temporal_addons"] = grass_repos_dict["t"]
-if "v" in grass_repos_dict:
-    tmpl_param["number_addons"] += len(grass_repos_dict["v"])
-    tmpl_param["vector_addons"] = grass_repos_dict["v"]
-
-with open("grass_addon_overview.html", "w") as f:
+tmpl_param = generate_template_parameter(grass_repos_dict)
+with open(CREATED_HTML_FILE, "w") as f:
     f.write(tmpl.render(**tmpl_param))
