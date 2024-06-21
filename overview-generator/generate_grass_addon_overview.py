@@ -26,8 +26,8 @@
 import json
 import os
 import subprocess
-
 from datetime import datetime
+
 from jinja2 import Template
 import requests
 
