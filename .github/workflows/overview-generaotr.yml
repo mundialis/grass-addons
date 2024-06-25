@@ -2,7 +2,7 @@ name: GRASS GIS addon overview generator
 
 on:
   push:
-    branches: [ overview_generator ]
+    branches: [ main ]
 
 env:
   GH_TOKEN: ${{ github.token }}
