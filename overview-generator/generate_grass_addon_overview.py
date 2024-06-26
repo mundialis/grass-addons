@@ -35,7 +35,7 @@ GITHUB_OWNER = "mundialis"
 GITHUB_TOPIC = "grass-gis-addons"
 script_dir = os.path.dirname(os.path.abspath(__file__))
 CREATED_HTML_FILE = os.path.join(
-    script_dir, "public", "grass_addon_overview.html"
+    script_dir, "..", "public", "grass_addon_overview.html"
 )
 
 
