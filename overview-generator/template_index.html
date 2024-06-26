@@ -1,0 +1,273 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+ <title>mundialis GRASS GIS Addons Manual pages</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ <meta name="Author" content="GRASS Development Team">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="grassdocs.css" type="text/css">
+</head>
+<body bgcolor="#FFFFFF">
+<h2>mundialis GRASS GIS Addons Manual pages</h2>
+
+<table><tr><td>
+<img src="https://www.fair-opendata.de/wp-content/uploads/2020/03/mundialis.png" width=200>
+</td><td>
+<a href="https://grass.osgeo.org">GRASS GIS</a> is free software,
+anyone may develop his/her own extensions (addons). The addons listed
+here are currently not part of the core software package.<br>
+Addons can easily be <b>installed</b> in your local GRASS GIS installation
+through the graphical user interface (<i>Menu - Settings - Addons
+Extension - Install</i>) or via the <a
+href="https://grass.osgeo.org/grass-stable/manuals/g.extension.html">g.extension</a> command. <p> <i>These
+manual pages are updated daily. Last run: {{ date }}</i>
+<p> How to contribute?
+<p> See instructions here:
+<a href="https://github.com/mundialis/grass-gis-helpers/blob/main/How-to-create-a-GRASS-GIS-addon.md">How to create a GRASS GIS addon</a>.
+
+
+</tr></table>
+<hr>
+<!-- TABLE OF CONTENT -->
+<div class="toc">
+<h4 class="toc">Table of contents</h4>
+<ul class="toc">
+{% if display_addons is defined %}
+<li class="toc"><a class="toc" href="#d">Display commands (d.*)</a></li>
+{% endif %}
+{% if db_addons is defined %}
+<li class="toc"><a class="toc" href="#db">Database commands (db.*)</a></li>
+{% endif %}
+{% if general_addons is defined %}
+<li class="toc"><a class="toc" href="#g">General commands (g.*)</a></li>
+{% endif %}
+{% if imagery_addons is defined %}
+<li class="toc"><a class="toc" href="#i">Imagery commands (i.*)</a></li>
+{% endif %}
+{% if misc_addons is defined %}
+<li class="toc"><a class="toc" href="#m">Miscellaneous commands (m.*)</a></li>
+{% endif %}
+{% if postscript_addons is defined %}
+<li class="toc"><a class="toc" href="#ps">PostScript commands (ps.*)</a></li>
+{% endif %}
+{% if raster_addons is defined %}
+<li class="toc"><a class="toc" href="#r">Raster commands (r.*)</a></li>
+{% endif %}
+{% if drast_addons is defined %}
+<li class="toc"><a class="toc" href="#r3">3D raster commands (r3.*)</a></li>
+{% endif %}
+{% if temporal_addons is defined %}
+<li class="toc"><a class="toc" href="#t">Temporal commands (t.*)</a></li>
+{% endif %}
+{% if vector_addons is defined %}
+<li class="toc"><a class="toc" href="#v">Vector commands (v.*)</a></li>
+{% endif %}
+</ul>
+</div>
+
+{% if display_addons is defined %}
+<!-- DISPLAY SECTION -->
+<a name="d"></a>
+<h3>Display</h3>
+<ul>
+{% for addon_name, addom_param in display_addons.items() -%}
+<li style="margin-left: 20px"><a href="{{ addom_param.url }}">{{ addon_name }}</a>:
+{{ addom_param.description }}
+{% if addom_param.testsuite == "failure" %}
+<font color=#AAAAAA>[testsuite: </font><font color=#FF0000>yes</font><font color=#AAAAAA>]</font>
+{% elif addom_param.testsuite == "success" %}
+<font color=#AAAAAA>[testsuite: </font><font color=#7CFC00>yes</font><font color=#AAAAAA>]</font>
+{% else %}
+<font color=#AAAAAA>[testsuite: </font><font color=#808080>{{ addom_param.testsuite }}</font><font color=#AAAAAA>]</font>
+{% endif %}
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if db_addons is defined %}
+<!-- DATABASE SECTION -->
+<a name="db"></a>
+<h3>Database</h3>
+<ul>
+{% for addon_name, addom_param in db_addons.items() -%}
+<li style="margin-left: 20px"><a href="{{ addom_param.url }}">{{ addon_name }}</a>:
+{{ addom_param.description }}
+{% if addom_param.testsuite == "failure" %}
+<font color=#AAAAAA>[testsuite: </font><font color=#FF0000>yes</font><font color=#AAAAAA>]</font>
+{% elif addom_param.testsuite == "success" %}
+<font color=#AAAAAA>[testsuite: </font><font color=#7CFC00>yes</font><font color=#AAAAAA>]</font>
+{% else %}
+<font color=#AAAAAA>[testsuite: </font><font color=#808080>{{ addom_param.testsuite }}</font><font color=#AAAAAA>]</font>
+{% endif %}
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if general_addons is defined %}
+<!-- GENERAL SECTION -->
+<a name="g"></a>
+<h3>General</h3>
+<ul>
+{% for addon_name, addom_param in general_addons.items() -%}
+<li style="margin-left: 20px"><a href="{{ addom_param.url }}">{{ addon_name }}</a>:
+{{ addom_param.description }}
+{% if addom_param.testsuite == "failure" %}
+<font color=#AAAAAA>[testsuite: </font><font color=#FF0000>yes</font><font color=#AAAAAA>]</font>
+{% elif addom_param.testsuite == "success" %}
+<font color=#AAAAAA>[testsuite: </font><font color=#7CFC00>yes</font><font color=#AAAAAA>]</font>
+{% else %}
+<font color=#AAAAAA>[testsuite: </font><font color=#808080>{{ addom_param.testsuite }}</font><font color=#AAAAAA>]</font>
+{% endif %}
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if imagery_addons is defined %}
+<!-- IMAGERY SECTION -->
+<a name="i"></a>
+<h3>Imagery</h3>
+<ul>
+{% for addon_name, addom_param in imagery_addons.items() -%}
+<li style="margin-left: 20px"><a href="{{ addom_param.url }}">{{ addon_name }}</a>:
+{{ addom_param.description }}
+{% if addom_param.testsuite == "failure" %}
+<font color=#AAAAAA>[testsuite: </font><font color=#FF0000>yes</font><font color=#AAAAAA>]</font>
+{% elif addom_param.testsuite == "success" %}
+<font color=#AAAAAA>[testsuite: </font><font color=#7CFC00>yes</font><font color=#AAAAAA>]</font>
+{% else %}
+<font color=#AAAAAA>[testsuite: </font><font color=#808080>{{ addom_param.testsuite }}</font><font color=#AAAAAA>]</font>
+{% endif %}
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if misc_addons is defined %}
+<!-- MISC SECTION -->
+<a name="m"></a>
+<h3>Miscellaneous</h3>
+<ul>
+{% for addon_name, addom_param in misc_addons.items() -%}
+<li style="margin-left: 20px"><a href="{{ addom_param.url }}">{{ addon_name }}</a>:
+{{ addom_param.description }}
+{% if addom_param.testsuite == "failure" %}
+<font color=#AAAAAA>[testsuite: </font><font color=#FF0000>yes</font><font color=#AAAAAA>]</font>
+{% elif addom_param.testsuite == "success" %}
+<font color=#AAAAAA>[testsuite: </font><font color=#7CFC00>yes</font><font color=#AAAAAA>]</font>
+{% else %}
+<font color=#AAAAAA>[testsuite: </font><font color=#808080>{{ addom_param.testsuite }}</font><font color=#AAAAAA>]</font>
+{% endif %}
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if postscript_addons is defined %}
+<!-- POSTSCRIPT SECTION -->
+<a name="ps"></a>
+<h3>PostScript</h3>
+<ul>
+{% for addon_name, addom_param in postscript_addons.items() -%}
+<li style="margin-left: 20px"><a href="{{ addom_param.url }}">{{ addon_name }}</a>:
+{{ addom_param.description }}
+{% if addom_param.testsuite == "failure" %}
+<font color=#AAAAAA>[testsuite: </font><font color=#FF0000>yes</font><font color=#AAAAAA>]</font>
+{% elif addom_param.testsuite == "success" %}
+<font color=#AAAAAA>[testsuite: </font><font color=#7CFC00>yes</font><font color=#AAAAAA>]</font>
+{% else %}
+<font color=#AAAAAA>[testsuite: </font><font color=#808080>{{ addom_param.testsuite }}</font><font color=#AAAAAA>]</font>
+{% endif %}
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if raster_addons is defined %}
+<!-- RASTER SECTION -->
+<a name="r"></a>
+<h3>Raster</h3>
+<ul>
+{% for addon_name, addom_param in raster_addons.items() -%}
+<li style="margin-left: 20px"><a href="{{ addom_param.url }}">{{ addon_name }}</a>:
+{{ addom_param.description }}
+{% if addom_param.testsuite == "failure" %}
+<font color=#AAAAAA>[testsuite: </font><font color=#FF0000>yes</font><font color=#AAAAAA>]</font>
+{% elif addom_param.testsuite == "success" %}
+<font color=#AAAAAA>[testsuite: </font><font color=#7CFC00>yes</font><font color=#AAAAAA>]</font>
+{% else %}
+<font color=#AAAAAA>[testsuite: </font><font color=#808080>{{ addom_param.testsuite }}</font><font color=#AAAAAA>]</font>
+{% endif %}
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if drast_addons is defined %}
+<!-- 3D RASTER SECTION -->
+<a name="r3"></a>
+<h3>3D raster</h3>
+<ul>
+{% for addon_name, addom_param in drast_addons.items() -%}
+<li style="margin-left: 20px"><a href="{{ addom_param.url }}">{{ addon_name }}</a>:
+{{ addom_param.description }}
+{% if addom_param.testsuite == "failure" %}
+<font color=#AAAAAA>[testsuite: </font><font color=#FF0000>yes</font><font color=#AAAAAA>]</font>
+{% elif addom_param.testsuite == "success" %}
+<font color=#AAAAAA>[testsuite: </font><font color=#7CFC00>yes</font><font color=#AAAAAA>]</font>
+{% else %}
+<font color=#AAAAAA>[testsuite: </font><font color=#808080>{{ addom_param.testsuite }}</font><font color=#AAAAAA>]</font>
+{% endif %}
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if temporal_addons is defined %}
+<!-- TEMPORAL SECTION -->
+<a name="t"></a>
+<h3>Temporal</h3>
+<ul>
+{% for addon_name, addom_param in temporal_addons.items() -%}
+<li style="margin-left: 20px"><a href="{{ addom_param.url }}">{{ addon_name }}</a>:
+{{ addom_param.description }}
+{% if addom_param.testsuite == "failure" %}
+<font color=#AAAAAA>[testsuite: </font><font color=#FF0000>yes</font><font color=#AAAAAA>]</font>
+{% elif addom_param.testsuite == "success" %}
+<font color=#AAAAAA>[testsuite: </font><font color=#7CFC00>yes</font><font color=#AAAAAA>]</font>
+{% else %}
+<font color=#AAAAAA>[testsuite: </font><font color=#808080>{{ addom_param.testsuite }}</font><font color=#AAAAAA>]</font>
+{% endif %}
+{% endfor %}
+</ul>
+{% endif %}
+
+{% if vector_addons is defined %}
+<!-- VECTOR SECTION -->
+<a name="v"></a>
+<h3>Vector</h3>
+<ul>
+{% for addon_name, addom_param in vector_addons.items() -%}
+<li style="margin-left: 20px"><a href="{{ addom_param.url }}">{{ addon_name }}</a>:
+{{ addom_param.description }}
+{% if addom_param.testsuite == "failure" %}
+<font color=#AAAAAA>[testsuite: </font><font color=#FF0000>yes</font><font color=#AAAAAA>]</font>
+{% elif addom_param.testsuite == "success" %}
+<font color=#AAAAAA>[testsuite: </font><font color=#7CFC00>yes</font><font color=#AAAAAA>]</font>
+{% else %}
+<font color=#AAAAAA>[testsuite: </font><font color=#808080>{{ addom_param.testsuite }}</font><font color=#AAAAAA>]</font>
+{% endif %}
+{% endfor %}
+</ul>
+{% endif %}
+
+<p>
+<hr>
+Found {{ number_addons }} addons
+<p>
+</ul><hr>
+&copy; 2015-{{ current_year }} <a href="https://grass.osgeo.org">GRASS Development Team</a>,
+<a href="https://www.mundialis.de/">mundialis GmbH &amp; Co. KG</a> GRASS GIS Addons Manual pages<br>
+<i><small>{{ date_utc }}</small></i>
+
+<!-- **** Begin GRASS-overview-Ribbon-HTML. See MIT License at https://gitlab.com/seanwasere/fork-me-on-gitlab **** -->
+<p><a href="https://mundialis.github.io/grass-addons/">
+    <span id="overview" style="font-family: tahoma; font-size: 18px; position:fixed; top:90px; right:-75px; display:block; transform: rotate(45deg);-webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); color:white; background-color: rgb(25%, 60%, 25%); padding: 4px 35px 4px 35px; z-index:99; opacity:1">GRASS GIS addon overview - grid view</span>
+  </a></p>
+  <!-- **** End GRASS-overview-Ribbon-HTML **** -->
+
+</body></html>
