@@ -5,7 +5,7 @@
 # MODULE:      generate_grass_addon_overview.py
 # AUTHOR(S):   Anika Weinmann
 #
-# PURPOSE:     Script to generate a overview of the mundialis GRASS GIS addons
+# PURPOSE:     Script to generate an overview of the mundialis GRASS GIS addons
 # COPYRIGHT:   (C) 2024 by mundialis GmbH & Co. KG
 #
 # This program is free software; you can redistribute it and/or modify
