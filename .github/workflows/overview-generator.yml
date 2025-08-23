@@ -27,7 +27,7 @@ jobs:
             pip install -r overview-generator/requirements.txt
             python3 overview-generator/generate_grass_addon_overview.py
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: "public"
 
